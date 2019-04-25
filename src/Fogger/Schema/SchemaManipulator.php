@@ -47,6 +47,11 @@ class SchemaManipulator
                 $index->getName(),
                 implode(', ', $index->getColumns())
             ));
+            (function() {
+              $name = $this->getName();
+              $name = preg_replace('/s+/', '_', $name);
+              $this->_setName($name);
+            })->call($index);
             $this->targetSchema->createIndex($index, $table->getName());
         }
         /** @var DBAL\Column $column */
